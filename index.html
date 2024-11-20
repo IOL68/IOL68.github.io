@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Nutricional - Saam Monter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=Archivo:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="SM-logo-color.png" alt="Saam Monter" class="logo logo-desktop">
+            <img src="SM-logo-vertical-color.png" alt="Saam Monter" class="logo logo-mobile">
+        </div>
+
+        <div class="card">
+            <form id="calculadoraForm" onsubmit="return false;">
+                <div class="patient-info">
+                    <div class="form-group">
+                        <label for="nombre"><i class="fas fa-user"></i> Nombre del Paciente:</label>
+                        <input type="text" id="nombre" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="fecha"><i class="fas fa-calendar"></i> Fecha:</label>
+                            <input type="date" id="fecha" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="expediente"><i class="fas fa-file"></i> No. Expediente:</label>
+                            <input type="text" id="expediente">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Género:</label>
+                    <div class="gender-options">
+                        <div class="gender-option">
+                            <input type="radio" id="masculino" name="genero" value="masculino" required>
+                            <label for="masculino"><i class="fas fa-male"></i> Masculino</label>
+                        </div>
+                        <div class="gender-option">
+                            <input type="radio" id="femenino" name="genero" value="femenino">
+                            <label for="femenino"><i class="fas fa-female"></i> Femenino</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="peso"><i class="fas fa-weight"></i> Peso (kg):</label>
+                    <input type="number" id="peso" step="0.1" min="0" max="300" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="talla"><i class="fas fa-ruler-vertical"></i> Talla (cm):</label>
+                    <input type="number" id="talla" min="0" max="300" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edad"><i class="fas fa-birthday-cake"></i> Edad:</label>
+                    <input type="number" id="edad" min="0" max="120" required>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" onclick="calcular()" class="btn-calculate">
+                        <i class="fas fa-calculator"></i> Calcular
+                    </button>
+                    <button type="button" onclick="limpiarFormulario()" class="btn-clear">
+                        <i class="fas fa-broom"></i> Limpiar
+                    </button>
+                </div>
+            </form>
+
+            <div id="resultados" class="hidden">
+                <h2><i class="fas fa-chart-bar"></i> Resultados (kcal/día)</h2>
+                <div class="results-grid">
+                    <div class="resultado-item">
+                        <div class="resultado-header">
+                            <i class="fas fa-flask"></i>
+                            <h3>Harris Benedict</h3>
+                        </div>
+                        <span id="harris-benedict" class="valor">-</span>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="resultado-header">
+                            <i class="fas fa-building"></i>
+                            <h3>OMS</h3>
+                        </div>
+                        <span id="oms" class="valor">-</span>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="resultado-header">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Valencia</h3>
+                        </div>
+                        <span id="valencia" class="valor">-</span>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="resultado-header">
+                            <i class="fas fa-microscope"></i>
+                            <h3>IOM</h3>
+                        </div>
+                        <span id="iom" class="valor">-</span>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="resultado-header">
+                            <i class="fas fa-bolt"></i>
+                            <h3>Estimación Rápida</h3>
+                        </div>
+                        <span id="rapida" class="valor">-</span>
+                    </div>
+                    <div class="resultado-item">
+                        <div class="resultado-header">
+                            <i class="fas fa-balance-scale"></i>
+                            <h3>Mifflin St. Jeor</h3>
+                        </div>
+                        <span id="mifflin" class="valor">-</span>
+                    </div>
+                </div>
+                <button onclick="imprimirResultados()" class="btn-print">
+                    <i class="fas fa-print"></i> Imprimir Resultados
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plantilla para impresión -->
+    <div id="print-template" class="print-only">
+        <div class="print-header">
+            <img src="SM-logo-color.png" alt="Saam Monter" class="print-logo">
+        </div>
+        <div class="print-content">
+            <div class="patient-details">
+                <p><strong>Nombre del Paciente:</strong> <span id="print-nombre"></span></p>
+                <p><strong>Fecha:</strong> <span id="print-fecha"></span></p>
+                <p><strong>No. Expediente:</strong> <span id="print-expediente"></span></p>
+                <p><strong>Género:</strong> <span id="print-genero"></span></p>
+                <p><strong>Peso:</strong> <span id="print-peso"></span> kg</p>
+                <p><strong>Talla:</strong> <span id="print-talla"></span> cm</p>
+                <p><strong>Edad:</strong> <span id="print-edad"></span> años</p>
+            </div>
+            <div class="results-print">
+                <h2>Resultados de Gasto Energético</h2>
+                <div class="print-results-grid">
+                    <!-- Se llena con JavaScript -->
+                </div>
+            </div>
+            <div class="print-footer">
+                <p>Nutri+Deportiva</p>
+                <p>Saam Monter</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

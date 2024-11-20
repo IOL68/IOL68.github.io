@@ -1,0 +1,357 @@
+:root {
+    --primary-color: #9B1568;    /* Morado más oscuro */
+    --primary-light: #AA3A9F;    /* Morado medio */
+    --primary-lighter: #CA34AB;  /* Morado más claro */
+    --accent-color: #FFD700;     /* Amarillo oro */
+    --text-color: #333;
+    --border-color: #ddd;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Epilogue', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    min-height: 100vh;
+    background-image: url('background.png');
+    background-size: 850px;
+    background-repeat: repeat;
+    background-color: #000000;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 2rem;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(139, 33, 119, 0.1);
+}
+
+.logo {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.logo-mobile {
+    display: none;
+}
+
+.logo-desktop {
+    display: block;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(139, 33, 119, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.patient-info {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-light);
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.half {
+    flex: 1;
+}
+
+h1, h2, h3 {
+    font-family: 'Archivo', sans-serif;
+    color: var(--primary-color);
+}
+
+h2 {
+    margin: 1.5rem 0;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid var(--primary-light);
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: var(--white);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(139, 33, 119, 0.3);
+}
+
+.gender-options {
+    display: flex;
+    gap: 2rem;
+    margin-top: 0.5rem;
+}
+
+.gender-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.btn-calculate {
+    background-color: var(--primary-color);
+    color: var(--white);
+    flex: 2;
+}
+
+.btn-calculate:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.btn-clear {
+    background-color: #f5f5f5;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    flex: 1;
+}
+
+.btn-clear:hover {
+    background-color: #f0f0f0;
+}
+
+.btn-print {
+    width: 100%;
+    margin-top: 1rem;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.btn-print:hover {
+    background-color: #e6c200;
+}
+
+#resultados {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--primary-light);
+}
+
+#resultados.hidden {
+    display: none;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.resultado-item {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 2px solid var(--primary-light);
+    transition: transform 0.3s ease;
+}
+
+.resultado-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(139, 33, 119, 0.2);
+}
+
+.resultado-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+}
+
+.valor {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.print-only {
+    display: none;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .logo-desktop {
+        display: none;
+    }
+    
+    .logo-mobile {
+        display: block;
+        max-width: 150px;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .btn-calculate, .btn-clear {
+        width: 100%;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .gender-options {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* Estilos para impresión */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #print-template, #print-template * {
+        visibility: visible;
+    }
+
+    #print-template {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 21.59cm;
+        height: 27.94cm;
+        padding: 2.54cm;
+    }
+
+    .print-header {
+        text-align: center;
+        margin-bottom: 2cm;
+    }
+
+    .print-logo {
+        width: 8cm;
+    }
+
+    .print-content {
+        font-size: 12pt;
+    }
+
+    .patient-details {
+        margin-bottom: 2cm;
+        line-height: 1.5;
+    }
+
+    .patient-details p {
+        margin-bottom: 0.5cm;
+    }
+
+    .print-results-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1cm;
+        margin: 1cm 0;
+    }
+
+    .print-footer {
+        position: fixed;
+        bottom: 2.54cm;
+        left: 2.54cm;
+        right: 2.54cm;
+        text-align: center;
+        border-top: 1px solid var(--primary-color);
+        padding-top: 0.5cm;
+    }
+}
+
+/* Eliminar flechas de input number */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
